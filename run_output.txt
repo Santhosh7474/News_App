@@ -1,0 +1,46 @@
+Launching lib/main.dart on iPhone 16 Pro Max in debug mode...
+Running Xcode build...                                          
+Xcode build done.                                           16.8s
+Target native_assets required define SdkRoot but it was not provided
+Syncing files to device iPhone 16 Pro Max...                       143ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on iPhone 16 Pro Max is available at: http://127.0.0.1:54339/3K3vwap9SIE=/
+The Flutter DevTools debugger and profiler on iPhone 16 Pro Max is available at: http://127.0.0.1:54339/3K3vwap9SIE=/devtools/?uri=ws://127.0.0.1:54339/3K3vwap9SIE=/ws
+
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown while finalizing the widget tree:
+Multiple widgets used the same GlobalKey.
+The key [GlobalObjectKey int#9a295] was used by multiple widgets. The parents of those widgets were:
+- PopScope<dynamic>(dependencies: [_ModalScopeStatus], state: _PopScopeState<dynamic>#d07ee)
+- PopScope<dynamic>(dependencies: [_ModalScopeStatus], state: _PopScopeState<dynamic>#1ec38)
+A GlobalKey can only be specified on one widget at a time in the widget tree.
+
+When the exception was thrown, this was the stack:
+#0      BuildOwner._debugVerifyGlobalKeyReservation.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:flutter/src/widgets/framework.dart:3276:13)
+#1      _LinkedHashMapMixin.forEach (dart:_compact_hash:765:13)
+#2      BuildOwner._debugVerifyGlobalKeyReservation.<anonymous closure>.<anonymous closure> (package:flutter/src/widgets/framework.dart:3220:20)
+#3      _LinkedHashMapMixin.forEach (dart:_compact_hash:765:13)
+#4      BuildOwner._debugVerifyGlobalKeyReservation.<anonymous closure> (package:flutter/src/widgets/framework.dart:3214:36)
+#5      BuildOwner._debugVerifyGlobalKeyReservation (package:flutter/src/widgets/framework.dart:3284:6)
+#6      BuildOwner.finalizeTree.<anonymous closure> (package:flutter/src/widgets/framework.dart:3347:11)
+#7      BuildOwner.finalizeTree (package:flutter/src/widgets/framework.dart:3434:8)
+#8      WidgetsBinding.drawFrame (package:flutter/src/widgets/binding.dart:1309:19)
+#9      RendererBinding._handlePersistentFrameCallback (package:flutter/src/rendering/binding.dart:495:5)
+#10     SchedulerBinding._invokeFrameCallback (package:flutter/src/scheduler/binding.dart:1430:15)
+#11     SchedulerBinding.handleDrawFrame (package:flutter/src/scheduler/binding.dart:1345:9)
+#12     SchedulerBinding.scheduleWarmUpFrame.<anonymous closure> (package:flutter/src/scheduler/binding.dart:1055:9)
+#13     PlatformDispatcher.scheduleWarmUpFrame.<anonymous closure> (dart:ui/platform_dispatcher.dart:906:16)
+#17     _RawReceivePort._handleMessage (dart:isolate-patch/isolate_patch.dart:193:12)
+(elided 3 frames from class _Timer and dart:async-patch)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+Another exception was thrown: Multiple widgets used the same GlobalKey.
+Lost connection to device.
