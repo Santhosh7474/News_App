@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../models/news_item.dart';
 import '../../../../providers/news_provider.dart';
-import '../../../../ui/widgets/glass_container.dart';
 import '../widgets/featured_hero_card.dart';
 import '../widgets/horizontal_news_card.dart';
 
@@ -154,7 +153,7 @@ class HomeScreen extends ConsumerWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           scrollDirection: Axis.horizontal,
                           itemCount: breakingNews.length,
-                          separatorBuilder: (_, __) => const SizedBox(width: 14),
+                          separatorBuilder: (_, idx) => const SizedBox(width: 14),
                           itemBuilder: (context, index) {
                             final article = breakingNews[index];
                             return GestureDetector(

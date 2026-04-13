@@ -711,7 +711,7 @@ class _GlassTile extends StatelessWidget {
                     Text(value!,
                         style: TextStyle(
                             color: secondaryTextColor, fontSize: 14)),
-                  if (trailing != null) trailing!,
+                  ?trailing,
                   if (onTap != null && trailing == null)
                     Icon(CupertinoIcons.chevron_right,
                         size: 14, color: secondaryTextColor),

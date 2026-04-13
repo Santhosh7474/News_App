@@ -22,117 +22,99 @@ class ModernBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     if (icons.isEmpty) return const SizedBox.shrink();
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final count = icons.length;
+
+    // The indicator alignment: map index 0→-1.0, last→1.0
+    final alignX = count == 1 ? 0.0 : (2.0 * currentIndex / (count - 1)) - 1.0;
 
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(40, 0, 40, 14),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            // Main liquid glass capsule
-            ClipRRect(
-              borderRadius: BorderRadius.circular(36),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
-                child: Container(
-                  height: 66,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(36),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: isDark
-                          ? [
-                              Colors.white.withValues(alpha: 0.16),
-                              Colors.white.withValues(alpha: 0.06),
-                            ]
-                          : [
-                              Colors.white.withValues(alpha: 0.85),
-                              Colors.white.withValues(alpha: 0.50),
-                            ],
-                    ),
-                    border: Border.all(
-                      color: isDark
-                          ? Colors.white.withValues(alpha: 0.20)
-                          : Colors.white.withValues(alpha: 0.75),
-                      width: 1.0,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(
-                            alpha: isDark ? 0.40 : 0.12),
-                        blurRadius: 32,
-                        spreadRadius: -4,
-                        offset: const Offset(0, 8),
-                      ),
-                      BoxShadow(
-                        color: Colors.white.withValues(
-                            alpha: isDark ? 0.04 : 0.60),
-                        blurRadius: 1,
-                        offset: const Offset(0, 1),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: List.generate(icons.length, (index) {
-                      return Expanded(
-                        child: _NavItem(
-                          icon: icons[index],
-                          activeIcon: activeIcons[index],
-                          isSelected: index == currentIndex,
-                          isDark: isDark,
-                          onTap: () {
-                            HapticFeedback.lightImpact();
-                            onTap(index);
-                          },
+        child: SizedBox(
+          height: 66,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              // ── Frosted glass capsule (full width/height) ──────────────────
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(36),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(36),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: isDark
+                              ? [
+                                  Colors.white.withValues(alpha: 0.15),
+                                  Colors.white.withValues(alpha: 0.05),
+                                ]
+                              : [
+                                  Colors.white.withValues(alpha: 0.88),
+                                  Colors.white.withValues(alpha: 0.55),
+                                ],
                         ),
-                      );
-                    }),
+                        border: Border.all(
+                          color: isDark
+                              ? Colors.white.withValues(alpha: 0.20)
+                              : Colors.white.withValues(alpha: 0.75),
+                          width: 1.0,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black
+                                .withValues(alpha: isDark ? 0.40 : 0.12),
+                            blurRadius: 32,
+                            spreadRadius: -4,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // Sliding glow indicator pill (floating on top)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: AnimatedAlign(
-                  duration: const Duration(milliseconds: 380),
-                  curve: Curves.easeOutBack,
-                  alignment: Alignment(
-                    (2 * currentIndex / (icons.length - 1)) - 1,
-                    0,
-                  ),
-                  child: FractionallySizedBox(
-                    widthFactor: 1 / icons.length,
-                    child: Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(26),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                          child: Container(
-                            width: 60,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(26),
-                              color: isDark
-                                  ? Colors.white.withValues(alpha: 0.14)
-                                  : Colors.white.withValues(alpha: 0.70),
-                              border: Border.all(
+              // ── Animated sliding pill indicator (sits inside the capsule) ──
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: AnimatedAlign(
+                      duration: const Duration(milliseconds: 380),
+                      curve: Curves.easeOutBack,
+                      alignment: Alignment(alignX, 0),
+                      child: FractionallySizedBox(
+                        widthFactor: 1 / count,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(28),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(28),
                                 color: isDark
-                                    ? Colors.white.withValues(alpha: 0.22)
-                                    : Colors.white.withValues(alpha: 0.90),
-                                width: 1,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
+                                    ? Colors.white.withValues(alpha: 0.18)
+                                    : Colors.white.withValues(alpha: 0.70),
+                                border: Border.all(
                                   color: isDark
-                                      ? Colors.white.withValues(alpha: 0.18)
-                                      : Colors.black.withValues(alpha: 0.10),
-                                  blurRadius: 20,
-                                  spreadRadius: isDark ? 2 : 0,
+                                      ? Colors.white.withValues(alpha: 0.28)
+                                      : Colors.white.withValues(alpha: 0.90),
+                                  width: 1,
                                 ),
-                              ],
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: isDark
+                                        ? Colors.white.withValues(alpha: 0.15)
+                                        : Colors.black.withValues(alpha: 0.08),
+                                    blurRadius: 16,
+                                    spreadRadius: isDark ? 2 : 0,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -141,8 +123,28 @@ class ModernBottomNavBar extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ],
+
+              // ── Touch targets + icons (on top of everything) ─────────────
+              Positioned.fill(
+                child: Row(
+                  children: List.generate(count, (index) {
+                    return Expanded(
+                      child: _NavItem(
+                        icon: icons[index],
+                        activeIcon: activeIcons[index],
+                        isSelected: index == currentIndex,
+                        isDark: isDark,
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          onTap(index);
+                        },
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -178,20 +180,22 @@ class _NavItem extends StatelessWidget {
           transform: Matrix4.identity()
             ..translateByDouble(0.0, isSelected ? -3.0 : 0.0, 0.0, 1.0)
             ..scaleByDouble(
-              isSelected ? 1.28 : 0.92,
-              isSelected ? 1.28 : 0.92,
+              isSelected ? 1.25 : 0.92,
+              isSelected ? 1.25 : 0.92,
               1.0,
               1.0,
             ),
           transformAlignment: FractionalOffset.center,
           child: AnimatedOpacity(
-            opacity: isSelected ? 1.0 : 0.45,
+            opacity: isSelected ? 1.0 : 0.42,
             duration: const Duration(milliseconds: 260),
             curve: Curves.easeInCubic,
             child: Icon(
               isSelected ? activeIcon : icon,
               size: 24,
-              color: isSelected ? activeColor : (isDark ? Colors.white60 : Colors.black45),
+              color: isSelected
+                  ? activeColor
+                  : (isDark ? Colors.white60 : Colors.black38),
             ),
           ),
         ),

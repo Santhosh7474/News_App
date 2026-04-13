@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../models/news_item.dart';
-import '../../../../ui/widgets/glass_container.dart';
 
 class FeaturedHeroCard extends StatelessWidget {
   final NewsItem article;

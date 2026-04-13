@@ -23,9 +23,6 @@ class ArticleDetailScreen extends StatelessWidget {
     final primaryTextColor = isDark ? Colors.white : AppColors.textPrimaryLight;
     final secondaryTextColor =
         isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight;
-    final sheetBg = isDark
-        ? const Color(0xFF0A0A14)
-        : const Color(0xFFEEEEF2);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -223,6 +220,7 @@ class ArticleDetailScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _GlassPill(
+                              isDark: isDark,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -237,9 +235,9 @@ class ArticleDetailScreen extends StatelessWidget {
                                           fontSize: 13)),
                                 ],
                               ),
-                              isDark: isDark,
                             ),
                             _GlassPill(
+                              isDark: isDark,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -254,7 +252,6 @@ class ArticleDetailScreen extends StatelessWidget {
                                           fontSize: 13)),
                                 ],
                               ),
-                              isDark: isDark,
                             ),
                           ],
                         ),
