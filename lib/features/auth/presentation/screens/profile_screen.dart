@@ -16,6 +16,7 @@ class ProfileScreen extends ConsumerWidget {
   Future<void> _signOut(BuildContext context, WidgetRef ref) async {
     final confirmed = await showCupertinoDialog<bool>(
       context: context,
+      useRootNavigator: true,
       builder: (ctx) => CupertinoAlertDialog(
         title: const Text('Sign Out'),
         content: const Text('Are you sure you want to sign out?'),
@@ -42,6 +43,7 @@ class ProfileScreen extends ConsumerWidget {
     final current = ref.read(themeModeProvider);
     showCupertinoModalPopup<void>(
       context: context,
+      useRootNavigator: true,
       builder: (ctx) => CupertinoActionSheet(
         title: const Text('App Theme'),
         actions: [
@@ -95,6 +97,7 @@ class ProfileScreen extends ConsumerWidget {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => _LanguagePickerSheet(
         currentCode: currentCode,

@@ -16,21 +16,48 @@ import '../providers/settings_provider.dart';
 import '../providers/splash_provider.dart';
 import '../ui/widgets/main_shell.dart';
 
-// Router provider — needs access to auth state via Riverpod
+/// A notifier that triggers router refreshes when auth or basic setup state changes.
+/// This prevents the entire GoRouter object from being re-created when settings change,
+/// which would otherwise reset the navigation stack.
+class AppRouterNotifier extends ChangeNotifier {
+  final Ref _ref;
+
+  AppRouterNotifier(this._ref) {
+    // Listen to changes in auth state
+    _ref.listen(authStateProvider, (prev, next) {
+      if (prev?.value != next.value) notifyListeners();
+    });
+
+    // Listen to splash finish
+    _ref.listen(splashFinishedProvider, (prev, next) {
+      if (prev != next) notifyListeners();
+    });
+
+    // Listen ONLY to languageSelection completeness in settings
+    _ref.listen(settingsProvider, (prev, next) {
+      final prevLang = prev?.value?.languageSelected;
+      final nextLang = next.value?.languageSelected;
+      if (prevLang != nextLang) notifyListeners();
+    });
+  }
+}
+
+// Router provider
 final appRouterProvider = Provider<GoRouter>((ref) {
   final rootNavigatorKey           = GlobalKey<NavigatorState>(debugLabel: 'root');
   final shellNavigatorHomeKey      = GlobalKey<NavigatorState>(debugLabel: 'shellHome');
   final shellNavigatorDiscoverKey  = GlobalKey<NavigatorState>(debugLabel: 'shellDiscover');
   final shellNavigatorProfileKey   = GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
 
-  final authState       = ref.watch(authStateProvider);
-  final hasSeenSplash   = ref.watch(splashFinishedProvider);
-  final settingsAsync   = ref.watch(settingsProvider);
-
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: '/splash',
+    refreshListenable: AppRouterNotifier(ref),
     redirect: (context, state) {
+      final hasSeenSplash   = ref.read(splashFinishedProvider);
+      final authState       = ref.read(authStateProvider);
+      final settingsAsync   = ref.read(settingsProvider);
+
       final isSplashRoute   = state.matchedLocation == '/splash';
       final isLoginRoute    = state.matchedLocation == '/login';
       final isLangRoute     = state.matchedLocation == '/language';
