@@ -245,21 +245,29 @@ class ArticleDetailScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 10),
-                            _GlassPill(
-                              isDark: isDark,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(CupertinoIcons.calendar,
-                                      size: 14,
-                                      color: secondaryTextColor),
-                                  const SizedBox(width: 5),
-                                  Text(article.publishedAt,
-                                      style: TextStyle(
-                                          color: primaryTextColor,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 13)),
-                                ],
+                            Expanded(
+                              child: _GlassPill(
+                                isDark: isDark,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(CupertinoIcons.calendar,
+                                        size: 14,
+                                        color: secondaryTextColor),
+                                    const SizedBox(width: 5),
+                                    Expanded(
+                                      child: Text(
+                                        article.publishedAt,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: primaryTextColor,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
