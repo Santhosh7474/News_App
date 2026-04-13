@@ -81,14 +81,14 @@ class ModernBottomNavBar extends StatelessWidget {
               // ── Animated sliding pill indicator (sits inside the capsule) ──
               Positioned.fill(
                 child: IgnorePointer(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: AnimatedAlign(
-                      duration: const Duration(milliseconds: 380),
-                      curve: Curves.easeOutBack,
-                      alignment: Alignment(alignX, 0),
-                      child: FractionallySizedBox(
-                        widthFactor: 1 / count,
+                  child: AnimatedAlign(
+                    duration: const Duration(milliseconds: 380),
+                    curve: Curves.easeOutBack,
+                    alignment: Alignment(alignX, 0),
+                    child: FractionallySizedBox(
+                      widthFactor: 1 / count,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(28),
                           child: BackdropFilter(

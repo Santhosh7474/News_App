@@ -219,23 +219,32 @@ class ArticleDetailScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _GlassPill(
-                              isDark: isDark,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(CupertinoIcons.person_solid,
-                                      size: 14,
-                                      color: secondaryTextColor),
-                                  const SizedBox(width: 5),
-                                  Text(article.author,
-                                      style: TextStyle(
-                                          color: primaryTextColor,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 13)),
-                                ],
+                            Expanded(
+                              child: _GlassPill(
+                                isDark: isDark,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(CupertinoIcons.person_solid,
+                                        size: 14,
+                                        color: secondaryTextColor),
+                                    const SizedBox(width: 5),
+                                    Expanded(
+                                      child: Text(
+                                        article.author,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: primaryTextColor,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
+                            const SizedBox(width: 10),
                             _GlassPill(
                               isDark: isDark,
                               child: Row(
