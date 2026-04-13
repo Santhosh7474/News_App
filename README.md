@@ -1,17 +1,37 @@
-# news_app
+# News App
 
-A new Flutter project.
+A modern, high-fidelity news application built with Flutter.
+
+![Flutter Version](https://img.shields.io/badge/Flutter-3.x-blue.svg)
+
+## Overview
+
+News App is a powerful and elegant news aggregator designed to provide users with a seamless reading experience. Combining cutting-edge design principles such as Glassmorphism with smooth physics-driven animations, this mobile application delivers curated news articles securely and efficiently. By leveraging Firebase for backend services and Riverpod for state management, the News App ensures scalability and a responsive user interface.
+
+## Key Features
+
+- **Personalized Feed:** Access the latest news tailored to your interests through our Discover page.
+- **Sleek UI/UX:** High-fidelity iOS-inspired modern design with custom animated navigation bars.
+- **Robust Authentication:** Secure logic for persistent login utilizing Firebase authentication.
+- **Dynamic Splash Screen:** Immersive Lottie-based splash screen transitions natively on app startup.
+- **Seamless Integrations:** Handles local caching and smooth asset loading using best practices.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Make sure you have Flutter installed. Follow these instructions to run the application:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+# Get dependencies
+flutter pub get
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+# Run the app
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technologies Used
+- Flutter & Dart
+- Firebase (Auth, Firestore)
+- Riverpod (State Management)
+- GoRouter (Routing)
+
+*For more questions or issues, please open an issue in the repository.*

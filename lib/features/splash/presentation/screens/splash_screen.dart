@@ -22,7 +22,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       backgroundColor:
           AppColors.backgroundDark, // Matches the native splash screen
       body: Container(
-        alignment: Alignment(16, 3),
+        alignment: Alignment.center,
         child: Lottie.asset(
           'assets/splash_screen.json',
           fit: BoxFit.contain,
