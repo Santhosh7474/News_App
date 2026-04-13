@@ -196,7 +196,7 @@ class ArticleDetailScreen extends StatelessWidget {
                     ),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Drag handle
                       Center(
@@ -279,7 +279,7 @@ class ArticleDetailScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Text(
                                 article.title,
