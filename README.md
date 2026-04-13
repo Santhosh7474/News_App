@@ -24,6 +24,11 @@ Make sure you have Flutter installed. Follow these instructions to run the appli
 # Get dependencies
 flutter pub get
 
+# Configure Firebase (Required)
+# This project requires Firebase configurations which are not included in source control for security.
+# Ensure you have the Firebase CLI installed and run:
+flutterfire configure
+
 # Run the app
 flutter run
 ```
