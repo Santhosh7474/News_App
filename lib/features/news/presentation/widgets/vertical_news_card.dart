@@ -101,12 +101,16 @@ class VerticalNewsCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        Text(
-                          article.publishedAt,
-                          style: TextStyle(
-                            color: secondaryTextColor,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
+                        Expanded(
+                          child: Text(
+                            article.publishedAt,
+                            style: TextStyle(
+                              color: secondaryTextColor,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(width: 10),
