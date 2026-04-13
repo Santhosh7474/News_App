@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/auth/presentation/screens/language_selection_screen.dart';
+import '../features/auth/presentation/screens/legal_document_screen.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/profile_screen.dart';
 import '../features/splash/presentation/screens/splash_screen.dart';
@@ -82,6 +83,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/language',
         parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const LanguageSelectionScreen(),
+      ),
+
+      // Legal Document
+      GoRoute(
+        path: '/legal',
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          return LegalDocumentScreen(
+            title: extra['title']!,
+            content: extra['content']!,
+          );
+        },
       ),
 
       StatefulShellRoute(

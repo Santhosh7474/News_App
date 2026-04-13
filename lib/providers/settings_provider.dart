@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _kThemeKey    = 'app_theme_mode';
 const _kLangKey     = 'app_language';
 const _kLangSetKey  = 'language_selected'; // true once the user has chosen
+const _kNotifKey    = 'notifications_enabled';
 
 // ─── Supported Languages ─────────────────────────────────────────────────────
 class AppLanguage {
@@ -41,22 +42,26 @@ class AppSettings {
   final ThemeMode themeMode;
   final String languageCode;
   final bool languageSelected;
+  final bool notificationsEnabled;
 
   const AppSettings({
     this.themeMode = ThemeMode.dark,
     this.languageCode = 'en-IN',
     this.languageSelected = false,
+    this.notificationsEnabled = true,
   });
 
   AppSettings copyWith({
     ThemeMode? themeMode,
     String? languageCode,
     bool? languageSelected,
+    bool? notificationsEnabled,
   }) {
     return AppSettings(
       themeMode: themeMode ?? this.themeMode,
       languageCode: languageCode ?? this.languageCode,
       languageSelected: languageSelected ?? this.languageSelected,
+      notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
     );
   }
 }
@@ -72,11 +77,13 @@ class SettingsNotifier extends AsyncNotifier<AppSettings> {
     final themeIndex = _prefs.getInt(_kThemeKey) ?? ThemeMode.dark.index;
     final lang = _prefs.getString(_kLangKey) ?? 'en-IN';
     final langSet = _prefs.getBool(_kLangSetKey) ?? false;
+    final notifEnabled = _prefs.getBool(_kNotifKey) ?? true;
 
     return AppSettings(
       themeMode: ThemeMode.values[themeIndex],
       languageCode: lang,
       languageSelected: langSet,
+      notificationsEnabled: notifEnabled,
     );
   }
 
@@ -95,6 +102,12 @@ class SettingsNotifier extends AsyncNotifier<AppSettings> {
   Future<void> markLanguageSelected() async {
     await _prefs.setBool(_kLangSetKey, true);
     state = AsyncData(state.value!.copyWith(languageSelected: true));
+  }
+
+  Future<void> toggleNotifications() async {
+    final newValue = !(state.value?.notificationsEnabled ?? true);
+    await _prefs.setBool(_kNotifKey, newValue);
+    state = AsyncData(state.value!.copyWith(notificationsEnabled: newValue));
   }
 }
 
@@ -120,4 +133,8 @@ final currentLanguageProvider = Provider<AppLanguage>((ref) {
     (l) => l.code == code,
     orElse: () => kSupportedLanguages.first,
   );
+});
+
+final notificationsEnabledProvider = Provider<bool>((ref) {
+  return ref.watch(settingsProvider).value?.notificationsEnabled ?? true;
 });
